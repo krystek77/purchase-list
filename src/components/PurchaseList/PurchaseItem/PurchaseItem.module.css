@@ -1,0 +1,30 @@
+.PurchaseItem,
+.PurchaseData {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: nowrap;
+}
+.PurchaseName,
+.PurchaseAmount,
+.PurchaseUnit {
+  padding: 5px 10px;
+  font-size: 16px;
+  text-transform: capitalize;
+  flex-shrink: 1;
+}
+.PurchaseName {
+  font-weight: bold;
+}
+.PurchaseUnit {
+  text-transform: lowercase;
+}
+.PurchaseControls {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+.PurchaseControls button {
+  margin: 10px 5px 10px 0px;
+  padding: 0px 5px !important;
+  font-size: 12px;
+}
