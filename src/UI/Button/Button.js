@@ -18,6 +18,9 @@ const button = (props) => {
     case "EDIT":
       btnClass = [classes.Button, classes.EDIT];
       break;
+    case "SWITCH":
+      btnClass = [classes.Button, classes.SWITCH];
+      break;
     default:
       btnClass = [classes.Button];
   }

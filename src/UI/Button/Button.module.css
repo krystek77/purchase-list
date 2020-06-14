@@ -18,12 +18,26 @@
 .EDIT {
   background-color: darkmagenta;
   color: white;
-  padding:5px 10px;
+  padding: 5px 10px;
 }
 .DANGER {
   background-color: red;
   color: white;
-  padding:5px 10px;
+  padding: 5px 10px;
+}
+.SWITCH {
+  background-color: initial;
+  border: initial;
+  border-radius: 3px;
+  padding: 10px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  display: block;
+  margin: 10px auto;
+}
+.SWITCH:hover {
+  color: white;
 }
 .Button:disabled {
   background-color: grey;
