@@ -18,9 +18,9 @@ const Auth = (props) => {
         required: true,
         maxLength: "",
         minLength: "",
-        regExp: "",
+        regExp: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
       },
-      validationMessage: "",
+      validationMessage: "Invalid e-mail",
       valid: false,
       touched: false,
       value: "",
@@ -37,20 +37,47 @@ const Auth = (props) => {
         required: true,
         maxLength: "",
         minLength: "",
-        regExp: "",
+        regExp: /((?=.*\d)(?=.*[a-zA-Z])(?=.*[@!-'()+--/:?[-`{}~]).{8,15})/,
       },
-      validationMessage: "",
+      validationMessage:
+        "Password must contain at least one upper case letter, number and one special character and have to length from 8 to 15 characters",
       valid: false,
       touched: false,
       value: "",
     },
   });
 
+  const checkValidity = (value, rules) => {
+    let valid = true;
+    if (rules.required) {
+      valid = value.trim() !== "" && valid;
+    }
+    if (rules.maxLength) {
+      valid = value.length <= rules.maxLength && valid;
+    }
+    if (rules.minLength) {
+      valid = value.length >= rules.minLength && valid;
+    }
+    if (rules.regExp) {
+      valid = rules.regExp.test(String(value).toLowerCase()) && valid;
+    }
+    return valid;
+  };
+  /**
+   *
+   * @param {event} event
+   * @param {number} id
+   */
   const inputChangedHandler = (event, id) => {
     console.log("Input handler", id);
     const updatedInputs = { ...inputs };
     const updatedInputElement = { ...updatedInputs[id] };
+    updatedInputElement.touched = true;
     updatedInputElement.value = event.target.value;
+    updatedInputElement.valid = checkValidity(
+      updatedInputElement.value,
+      updatedInputElement.validation
+    );
     updatedInputs[id] = updatedInputElement;
     setInputs(updatedInputs);
   };
@@ -75,6 +102,7 @@ const Auth = (props) => {
       />
     );
   });
+
   return (
     <div className={classes.Auth}>
       <p className={classes.AuthTitle}>
