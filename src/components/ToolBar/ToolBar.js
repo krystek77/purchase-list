@@ -5,10 +5,9 @@ import { AuthContext } from "../../context/auth";
 const ToolBar = (props) => {
   const authContext = useContext(AuthContext);
 
-  const { userEmail = "Krystian" } = props;
   return (
     <div className={classes.ToolBar}>
-      <p className={classes.Greeting}>Hi, {userEmail}</p>
+      <p className={classes.Greeting}>Hi, {authContext.email}</p>
       <Button
         btnType="LOGOUT"
         type="button"

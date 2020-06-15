@@ -3,6 +3,8 @@ import classes from "./Auth.module.css";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
 import { AuthContext } from "../../context/auth";
+import LoadingSpinner from "../../UI/LoadingSpinner";
+import ErrorModal from "../../UI/Modal";
 
 const Auth = (props) => {
   const authContext = useContext(AuthContext);
@@ -25,7 +27,7 @@ const Auth = (props) => {
       validationMessage: "Invalid e-mail",
       valid: false,
       touched: false,
-      value: "",
+      value: "test@test.pl",
     },
     password: {
       elementType: "input",
@@ -45,7 +47,7 @@ const Auth = (props) => {
         "Password must contain at least one upper case letter, number and one special character and have to length from 8 to 15 characters",
       valid: false,
       touched: false,
-      value: "",
+      value: "test?A0test",
     },
   });
 
@@ -71,7 +73,6 @@ const Auth = (props) => {
    * @param {number} id
    */
   const inputChangedHandler = (event, id) => {
-    console.log("Input handler", id);
     const updatedInputs = { ...inputs };
     const updatedInputElement = { ...updatedInputs[id] };
     updatedInputElement.touched = true;
@@ -105,38 +106,45 @@ const Auth = (props) => {
     );
   });
 
+  const authHandler = (event, email, password) => {
+    event.preventDefault();
+    if (isSetSignin) authContext.signin(email, password);
+    else authContext.signup(email, password);
+  };
+
   return (
-    <div className={classes.Auth}>
-      <p className={classes.AuthTitle}>
-        {isSetSignin ? "YOU HAVE TO SIGNIN" : "SIGNUP NOW"}
-      </p>
-      <form
-        className={classes.AuthForm}
-        onSubmit={(event) => {
-          event.preventDefault();
-          console.log("ONSUBMIT");
-          if (isSetSignin) console.log("SIGNIN");
-          else console.log("SIGNUP");
-        }}
-      >
-        {inputElements}
-        <Button
-          type="submit"
-          isFormValid="true"
-          clicked={isSetSignin ? authContext.signin : authContext.signup}
+    <React.Fragment>
+      {authContext.error && (
+        <ErrorModal title="ERROR OCCURED" onClose={authContext.clearError}>
+          {authContext.error.message}
+        </ErrorModal>
+      )}
+      <div className={classes.Auth}>
+        <p className={classes.AuthTitle}>
+          {isSetSignin ? "YOU HAVE TO SIGNIN" : "SIGNUP NOW"}
+        </p>
+        <form
+          className={classes.AuthForm}
+          onSubmit={(event) =>
+            authHandler(event, inputs.email.value, inputs.password.value)
+          }
         >
-          {isSetSignin ? "SIGNIN" : "SIGNUP"}
+          {inputElements}
+          <Button type="submit" isFormValid="true">
+            {isSetSignin ? "SIGNIN" : "SIGNUP"}
+          </Button>
+        </form>
+        <Button
+          btnType="SWITCH"
+          type="button"
+          isFormValid="true"
+          clicked={() => setIsSetSignin((prevState) => !prevState)}
+        >
+          {isSetSignin ? "Switch to signup" : "Switch to signin"}
         </Button>
-      </form>
-      <Button
-        btnType="SWITCH"
-        type="button"
-        isFormValid="true"
-        clicked={() => setIsSetSignin((prevState) => !prevState)}
-      >
-        {isSetSignin ? "Switch to signup" : "Switch to signin"}
-      </Button>
-    </div>
+      </div>
+      {authContext.loading && <LoadingSpinner />}
+    </React.Fragment>
   );
 };
 

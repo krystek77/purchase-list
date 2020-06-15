@@ -29,7 +29,7 @@ const Purchases = (props) => {
   //       }
   //       setPurchases([...purchases]);
   //     } catch (error) {
-  //       console.log(error.message);
+  //
   //     }
   //   };
   //   getPurchases();
@@ -132,7 +132,6 @@ const Purchases = (props) => {
    * @param {number} purchaseId
    */
   const cancelPurchaseHandler = (purchaseId) => {
-    console.log(purchaseId);
     const cancelEdit = async () => {
       try {
         await fetch(

@@ -9,6 +9,6 @@ export default function App() {
   const authContext = useContext(AuthContext);
 
   return (
-    <div className="App">{authContext.isAuth ? <Purchases /> : <Auth />}</div>
+    <div className="App">{authContext.idToken ? <Purchases /> : <Auth />}</div>
   );
 }
