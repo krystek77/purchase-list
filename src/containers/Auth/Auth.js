@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import classes from "./Auth.module.css";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
@@ -50,7 +50,12 @@ const Auth = (props) => {
       value: "test?A0test",
     },
   });
-
+  useEffect(() => {
+    console.log("[Auth.js] - mounted");
+    return () => {
+      console.log("[Auth.js] - unmounted");
+    };
+  }, []);
   const checkValidity = (value, rules) => {
     let valid = true;
     if (rules.required) {

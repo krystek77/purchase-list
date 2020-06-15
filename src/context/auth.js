@@ -22,6 +22,7 @@ const AuthContextProvider = (props) => {
   });
 
   useEffect(() => {
+    console.log("[AuthContextProvider] - mounted");
     const token = localStorage.getItem("token");
     if (!token) {
       setAuthDataUser((prevState) => ({
@@ -49,7 +50,9 @@ const AuthContextProvider = (props) => {
         }));
       }
     }
-    return () => {};
+    return () => {
+      console.log("[AuthContextProvider] - unmounted");
+    };
   }, []);
 
   /**

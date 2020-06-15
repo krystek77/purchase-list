@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import classes from "./Purchases.module.css";
 
 import FormList from "../../components/FormList";
@@ -36,6 +36,13 @@ const Purchases = (props) => {
 
   //   return () => {};
   // }, []);
+
+  useEffect(() => {
+    console.log("Purchases.js] - mounted");
+    return () => {
+      console.log("[Purchases.js] - unmounted");
+    };
+  }, []);
 
   /**
    * Adds some purchase
