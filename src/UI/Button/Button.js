@@ -15,6 +15,9 @@ const button = (props) => {
     case "ADD":
       btnClass = [classes.Button, classes.ADD];
       break;
+    case "LOGOUT":
+      btnClass = [classes.Button, classes.LOGOUT];
+      break;
     case "EDIT":
       btnClass = [classes.Button, classes.EDIT];
       break;

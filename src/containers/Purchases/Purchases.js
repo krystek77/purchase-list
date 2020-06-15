@@ -5,6 +5,7 @@ import FormList from "../../components/FormList";
 import SearchPurchase from "../../components/SearchPurchase";
 import PurchaseList from "../../components/PurchaseList";
 import ErrorModal from "../../UI/Modal";
+import ToolBar from "../../components/ToolBar";
 
 const Purchases = (props) => {
   const [purchases, setPurchases] = useState([]);
@@ -206,28 +207,34 @@ const Purchases = (props) => {
     setIsLoading(false);
   };
   return (
-    <div className={classes.Purchases}>
-      {error && (
-        <ErrorModal title={"Error ocurred"} onClose={clearError}>
-          {error}
-        </ErrorModal>
-      )}
-      <h1 className={classes.PageTitle}>Purchase List</h1>
-      <FormList addPurchase={addPurchaseHandler} isLoadingAdd={isLoading.add} />
-      <hr />
-      <main>
-        <SearchPurchase filtered={filterPurchasesHandler} />
-        <PurchaseList
-          purchases={purchases}
-          removePurchase={removePurchaseHandler}
-          editPurchase={editPurchaseHandler}
-          cancelPurchase={cancelPurchaseHandler}
-          savePurchase={savePurchaseHandler}
-          isLoadingRemove={isLoading.remove}
-          isLoadingEdit={isLoading.edit}
+    <React.Fragment>
+      <ToolBar />
+      <div className={classes.Purchases}>
+        {error && (
+          <ErrorModal title={"Error ocurred"} onClose={clearError}>
+            {error}
+          </ErrorModal>
+        )}
+        <h1 className={classes.PageTitle}>Purchase List</h1>
+        <FormList
+          addPurchase={addPurchaseHandler}
+          isLoadingAdd={isLoading.add}
         />
-      </main>
-    </div>
+        <hr />
+        <main>
+          <SearchPurchase filtered={filterPurchasesHandler} />
+          <PurchaseList
+            purchases={purchases}
+            removePurchase={removePurchaseHandler}
+            editPurchase={editPurchaseHandler}
+            cancelPurchase={cancelPurchaseHandler}
+            savePurchase={savePurchaseHandler}
+            isLoadingRemove={isLoading.remove}
+            isLoadingEdit={isLoading.edit}
+          />
+        </main>
+      </div>
+    </React.Fragment>
   );
 };
 
