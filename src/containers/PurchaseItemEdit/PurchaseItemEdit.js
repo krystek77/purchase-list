@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import classes from "./PurchaseItemEdit.module.css";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
+import { AuthContext } from "../../context/auth";
 
 const PurchaseItemEdit = ({ name, amount, unit, saved, id, cancel }) => {
   const [updateForm, setUpdateForm] = useState({
@@ -70,6 +71,7 @@ const PurchaseItemEdit = ({ name, amount, unit, saved, id, cancel }) => {
     },
   });
   const [isFormValid, setIsFormValid] = useState(false);
+  const authContext = useContext(AuthContext);
 
   const checkValidation = (value, rules) => {
     let valid = true;
@@ -121,8 +123,9 @@ const PurchaseItemEdit = ({ name, amount, unit, saved, id, cancel }) => {
       amount: updateForm.amount.value,
       unit: updateForm.unit.value,
       isEdit: false,
+      userId: authContext.userId,
     };
-    
+
     saved(updatedPurchase);
   };
 

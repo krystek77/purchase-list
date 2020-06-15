@@ -21,13 +21,8 @@ const SearchPurchase = React.memo((props) => {
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
-    console.log(authContext.userId);
-
     const getFilteredData = async () => {
-      const query =
-        inputSearch.value.length === 0
-          ? `?orderBy="userId"&equalTo="${authContext.userId}"`
-          : `?orderBy="name"&equalTo="${inputSearch.value}"`;
+      const query = `?orderBy="userId"&equalTo="${authContext.userId}"`;
       try {
         const response = await fetch(
           `https://purchase-list-688c1.firebaseio.com/purchases.json` + query
@@ -36,6 +31,11 @@ const SearchPurchase = React.memo((props) => {
         let formattedData = [];
         for (let key in responseData) {
           formattedData.push({ id: key, ...responseData[key] });
+        }
+        if (inputSearch.value.length !== 0) {
+          formattedData = formattedData.filter(
+            (purchase) => purchase.name === inputSearch.value
+          );
         }
         filtered(formattedData.reverse());
       } catch (error) {
