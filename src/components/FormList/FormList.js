@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import classes from "./FormList.module.css";
 
 import Input from "../../UI/Input";
 import Button from "../../UI/Button";
 import LoadingSpinner from "../../UI/LoadingSpinner";
+import { AuthContext } from "../../context/auth";
 
 const FormList = React.memo((props) => {
+  const authContext = useContext(AuthContext);
   const [purchaseData, setPurchaseData] = useState({
     name: {
       elementType: "input",
@@ -97,6 +99,7 @@ const FormList = React.memo((props) => {
       name: purchaseData["name"].value,
       amount: purchaseData["amount"].value,
       unit: purchaseData["unit"].value,
+      userId: authContext.userId,
       isEdit: false,
     };
     props.addPurchase(newPurchase);

@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 // import classes from "./SearchPurchase.module.css";
 
 import Input from "../../UI/Input";
+import { AuthContext } from "../../context/auth";
 
 const SearchPurchase = React.memo((props) => {
   const { filtered } = props;
@@ -17,16 +18,19 @@ const SearchPurchase = React.memo((props) => {
   });
 
   const inputReference = useRef();
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
+    console.log(authContext.userId);
+
     const getFilteredData = async () => {
       const query =
         inputSearch.value.length === 0
-          ? ""
+          ? `?orderBy="userId"&equalTo="${authContext.userId}"`
           : `?orderBy="name"&equalTo="${inputSearch.value}"`;
       try {
         const response = await fetch(
-          "https://purchase-list-688c1.firebaseio.com/purchases.json" + query
+          `https://purchase-list-688c1.firebaseio.com/purchases.json` + query
         );
         const responseData = await response.json();
         let formattedData = [];
