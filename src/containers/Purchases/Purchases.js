@@ -206,7 +206,7 @@ const Purchases = (props) => {
     setIsLoading(false);
   };
   return (
-    <React.Fragment>
+    <div className={classes.Purchases}>
       {error && (
         <ErrorModal title={"Error ocurred"} onClose={clearError}>
           {error}
@@ -227,7 +227,7 @@ const Purchases = (props) => {
           isLoadingEdit={isLoading.edit}
         />
       </main>
-    </React.Fragment>
+    </div>
   );
 };
 
