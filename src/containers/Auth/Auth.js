@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import classes from "./Auth.module.css";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
+import { AuthContext } from "../../context/auth";
 
 const Auth = (props) => {
+  const authContext = useContext(AuthContext);
   const [isSetSignin, setIsSetSignin] = useState(true);
   const [inputs, setInputs] = useState({
     email: {
@@ -118,7 +120,11 @@ const Auth = (props) => {
         }}
       >
         {inputElements}
-        <Button type="submit" isFormValid="true">
+        <Button
+          type="submit"
+          isFormValid="true"
+          clicked={isSetSignin ? authContext.signin : authContext.signup}
+        >
           {isSetSignin ? "SIGNIN" : "SIGNUP"}
         </Button>
       </form>
