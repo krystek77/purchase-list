@@ -38,9 +38,7 @@ const SearchPurchase = React.memo((props) => {
           );
         }
         filtered(formattedData.reverse());
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     };
     const time = setTimeout(() => {
       if (inputSearch.value === inputReference.current.value) getFilteredData();

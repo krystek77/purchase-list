@@ -51,10 +51,7 @@ const Auth = (props) => {
     },
   });
   useEffect(() => {
-    console.log("[Auth.js] - mounted");
-    return () => {
-      console.log("[Auth.js] - unmounted");
-    };
+    return () => {};
   }, []);
   const checkValidity = (value, rules) => {
     let valid = true;

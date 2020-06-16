@@ -38,10 +38,7 @@ const Purchases = (props) => {
   // }, []);
 
   useEffect(() => {
-    console.log("Purchases.js] - mounted");
-    return () => {
-      console.log("[Purchases.js] - unmounted");
-    };
+    return () => {};
   }, []);
 
   /**
