@@ -67,7 +67,7 @@ const AuthContextProvider = (props) => {
           returnSecureToken: true,
         };
         const response = await fetch(
-          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDpepjeinTlIKCBI0pn0orVJowne8LNw7s",
+          `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY_FIREBASE}`,
           {
             method: "POST",
             body: JSON.stringify(authData),
@@ -121,7 +121,7 @@ const AuthContextProvider = (props) => {
     const signUpUser = async () => {
       try {
         const response = await fetch(
-          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDpepjeinTlIKCBI0pn0orVJowne8LNw7s",
+          `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_API_KEY_FIREBASE}`,
           {
             method: "POST",
             body: JSON.stringify(authData),
